@@ -7,6 +7,8 @@ import { AppService } from './app.service';
 import { EmployeeModule } from './employee/employee.module';
 import { dataSourceOptions } from 'db/data-source';
 import { AuthModule } from './auth/auth.module';
+import { WinstonModule } from 'nest-winston';
+import { winstonConfig } from './logger/winston.config';
 
 config();
 
@@ -16,6 +18,7 @@ config();
       envFilePath: '.env',
       isGlobal: true,
     }),
+    WinstonModule.forRoot(winstonConfig),
     TypeOrmModule.forRoot(dataSourceOptions),
     EmployeeModule,
     AuthModule,
