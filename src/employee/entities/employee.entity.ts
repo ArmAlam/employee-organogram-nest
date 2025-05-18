@@ -23,7 +23,7 @@ export class Employee {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'managerId' })
-  manager: Employee;
+  manager: Employee | null;
 
   @OneToMany(() => Employee, (employee) => employee.manager)
   subordinates: Employee[];
