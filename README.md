@@ -1,4 +1,4 @@
-# 👥 Employee Organogram
+# Employee Organogram
 
 A hierarchical employee management system built with **NestJS**, **TypeORM**, and **PostgreSQL**. It supports recursive data fetching (e.g., managers and their subordinates) and includes:
 
@@ -38,7 +38,7 @@ A hierarchical employee management system built with **NestJS**, **TypeORM**, an
 - Typescript
 - PostgreSQL (A docker compose file is attached in the root directory to spin a postgres instance easily)
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Clone the repository
@@ -125,6 +125,8 @@ The system is currenlty configured to use winston as logger which writes into a 
 
 For deploying the application to production, we can
 
-- Manual process: build the application (yarn build), and then host it on the server(EC2, Digital Ocean etc) containing proper env credentials.
+- Manual process: build the application (yarn build), and then host it on the server(EC2, Digital Ocean etc) configuring proper env credentials.
+
 - Docker: Using a Dockerfile (optionally with a docker-compose file), we can slightly automate the deploying process
-  -CICD: Using CI-CD and Github actions, we can fully automate the deployment process.
+
+- CI-CD: Using CI-CD and Github actions, we can fully automate the deployment process.
