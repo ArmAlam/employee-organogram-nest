@@ -21,7 +21,8 @@
     "typeorm": "yarn build && npx typeorm -d dist/db/data-source.js",
     "migration:generate": "yarn typeorm -- migration:generate",
     "migration:run": "yarn typeorm -- migration:run",
-    "migration:revert": "yarn typeorm -- migration:revert"
+    "migration:revert": "yarn typeorm -- migration:revert",
+    "seed": "ts-node -r tsconfig-paths/register db/seed/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
