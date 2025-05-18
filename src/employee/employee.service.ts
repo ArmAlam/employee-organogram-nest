@@ -3,7 +3,6 @@ import {
   Injectable,
   LoggerService,
   NotFoundException,
-  InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -41,28 +40,25 @@ export class EmployeeService {
   }
 
   async getSubordinates(managerId: number) {
-    try {
-      this.logger.log(`Fetching subordinates for id ${managerId}`);
+    this.logger.log(`Fetching managers for id ${managerId}`);
 
-      const manager = await this.employeeRepository.findOne({
-        where: { id: managerId },
-      });
+    const manager = await this.employeeRepository.findOne({
+      where: { id: managerId },
+    });
 
-      if (!manager) {
-        throw new NotFoundException('Manager not found');
-      }
+    if (!manager) {
+      this.logger.error(`Employee not found for id: ${managerId}`);
 
-      const data = await this.getSubordinatesRecursive(manager);
-
-      return {
-        managerId: data.id,
-        managerName: data.name,
-        managerPosition: data.position,
-        subordinates: data.subordinates,
-      };
-    } catch (error) {
-      this.logger.error(`Error fetching subordinates: ${error.message}`);
-      throw new InternalServerErrorException('Something went wrong');
+      throw new NotFoundException('Manager not found');
     }
+
+    const data = await this.getSubordinatesRecursive(manager);
+
+    return {
+      managerId: data.id,
+      managerName: data.name,
+      managerPosition: data.position,
+      subordinates: data.subordinates,
+    };
   }
 }

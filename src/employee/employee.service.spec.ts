@@ -4,6 +4,7 @@ import { Employee } from './entities/employee.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 describe('EmployeeService', () => {
   let service: EmployeeService;
@@ -12,6 +13,13 @@ describe('EmployeeService', () => {
   const mockRepo = () => ({
     findOne: jest.fn(),
   });
+  const mockLogger = {
+    log: jest.fn(),
+    error: jest.fn(),
+    warn: jest.fn(),
+    debug: jest.fn(),
+    verbose: jest.fn(),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,6 +28,10 @@ describe('EmployeeService', () => {
         {
           provide: getRepositoryToken(Employee),
           useFactory: mockRepo,
+        },
+        {
+          provide: WINSTON_MODULE_NEST_PROVIDER,
+          useValue: mockLogger,
         },
       ],
     }).compile();
